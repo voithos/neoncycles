@@ -39,3 +39,8 @@ func _on_Hitbox_body_entered(body):
 
 func _on_Hitbox_area_entered(area):
     _die()
+
+func _die():
+    var level = get_tree().get_nodes_in_group("level")[0]
+    level.done()
+    ._die()

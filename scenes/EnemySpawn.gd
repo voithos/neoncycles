@@ -24,6 +24,14 @@ func _ready():
         add_child(mesh)
     randomize()
     _set_next_tick()
+    call_deferred("_wire_level_done")
+
+func _wire_level_done():
+    var level = get_tree().get_nodes_in_group("level")[0]
+    level.connect("done", self, "_level_done")
+
+func _level_done():
+    is_active = false
     
 func _physics_process(delta):
     if !is_active:

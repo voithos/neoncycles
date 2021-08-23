@@ -1,11 +1,12 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/dark.material" type="Material" id=2]
-[ext_resource path="res://scenes/Drone.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Score.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/EnemySpawn.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/Arena.gd" type="Script" id=5]
 [ext_resource path="res://scenes/Camera.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/LevelController.tscn" type="PackedScene" id=7]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 25, 1, 25 )
@@ -41,9 +42,6 @@ mesh = SubResource( 2 )
 material/0 = ExtResource( 2 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-
-[node name="Drone" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.6776, 1.90735e-06, -14.2136 )
 
 [node name="EnemySpawn" parent="." instance=ExtResource( 4 )]
 spawn_shape = SubResource( 6 )
@@ -105,3 +103,7 @@ material/0 = null
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 5 )
+
+[node name="Score" parent="." instance=ExtResource( 3 )]
+
+[node name="LevelController" parent="." instance=ExtResource( 7 )]
