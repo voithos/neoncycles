@@ -9,16 +9,19 @@ var collision_layer_bit = 1
 var enemy_layer_bit = 3
 
 func _ready():
-    pass
+    var alphas = []
+    var a = 0.0
+    while a <= MAX_ALPHA:
+        alphas.push_back(a)
+        a += 0.05
+    MaterialStore.init_transparent_materials($MeshInstance.get_surface_material(0), alphas)
 
 func _physics_process(delta):
-    var alpha = range_lerp(timer, 0, timeout, MAX_ALPHA, 0)
-    var material = $MeshInstance.get_surface_material(0)
-    material.albedo_color = Color(material.albedo_color.r, material.albedo_color.g, material.albedo_color.b, alpha)
-    $MeshInstance.set_surface_material(0, material)
+    var alpha_v = range_lerp(timer, 0, timeout, 1.0, 0.0)
+    $MeshInstance.set_surface_material(0, MaterialStore.get_material(alpha_v))
 
     timer += delta
-    if alpha < MIN_COLLISION_ALPHA:
+    if alpha_v < MIN_COLLISION_ALPHA:
         monitorable = false
     var is_self_deadly = timer > self_deadly_timeout
     set_collision_layer_bit(collision_layer_bit, is_self_deadly)
