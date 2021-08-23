@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/dark.material" type="Material" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://scenes/Arena.gd" type="Script" id=5]
 [ext_resource path="res://scenes/Camera.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/LevelController.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/Wall.tres" type="Material" id=8]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 25, 1, 25 )
@@ -21,11 +22,27 @@ extents = Vector3( 20, 1, 20 )
 extents = Vector3( 26, 1, 1 )
 
 [sub_resource type="CubeMesh" id=4]
+material = ExtResource( 8 )
 size = Vector3( 52, 2, 2 )
 
 [sub_resource type="Environment" id=5]
 background_mode = 1
-ambient_light_energy = 0.0
+ambient_light_color = Color( 0.0431373, 0.203922, 0.203922, 1 )
+ambient_light_sky_contribution = 0.69
+tonemap_mode = 3
+ss_reflections_enabled = true
+ssao_enabled = true
+glow_enabled = true
+
+[sub_resource type="GIProbeData" id=7]
+bounds = AABB( -65.6065, -44.0571, -62.1285, 131.213, 88.1143, 124.257 )
+cell_size = 1.0251
+to_cell_xform = Transform( 0.975514, 0, 0, 0, 0.975514, 0, 0, 0, 0.975514, 64, 42.9783, 60.6072 )
+dynamic_data = PoolIntArray( 0, 8, 128, 128, 128, 1, 0, 0, 1086324736, 1110966272, 0, 0, 1102053376, 1110966272, 1065353216, 0, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 8355711, 0 )
+dynamic_range = 4
+bias = 1.5
+normal_bias = 0.0
+propagation = 0.7
 
 [node name="Arena" type="Spatial"]
 script = ExtResource( 5 )
@@ -46,12 +63,12 @@ material/0 = ExtResource( 2 )
 [node name="EnemySpawn" parent="." instance=ExtResource( 4 )]
 spawn_shape = SubResource( 6 )
 spawn_rate = 1.5
-debug = true
 
 [node name="Camera" parent="." instance=ExtResource( 6 )]
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 0.150881, -0.699012, 0.699012, 0, 0.707107, 0.707107, -0.988552, -0.106689, 0.106689, -0.0109634, 13, 0.0280476 )
+transform = Transform( -0.424626, -0.640192, 0.640192, 0, 0.707107, 0.707107, -0.905369, 0.300256, -0.300256, 8.44223, 13, 0.0280476 )
+shadow_enabled = true
 
 [node name="Wall1" type="StaticBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 25 )
@@ -107,3 +124,7 @@ environment = SubResource( 5 )
 [node name="Score" parent="." instance=ExtResource( 3 )]
 
 [node name="LevelController" parent="." instance=ExtResource( 7 )]
+
+[node name="GIProbe" type="GIProbe" parent="."]
+extents = Vector3( 65.6065, 44.0571, 62.1285 )
+data = SubResource( 7 )

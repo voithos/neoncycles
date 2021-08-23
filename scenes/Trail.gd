@@ -1,6 +1,6 @@
 extends Area
 
-const MAX_ALPHA = 0.9
+const MAX_ALPHA = 0.8
 const MIN_COLLISION_ALPHA = 0.1
 var timer = 0
 var timeout = 3.0
