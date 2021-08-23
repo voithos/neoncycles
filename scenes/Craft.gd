@@ -10,8 +10,15 @@ var current_rotation = 0.0
 var direction = Vector3.FORWARD
 
 var last_trail = 0.0
+var is_dying = false
+
+func _ready():
+    if has_node("Explosion"):
+        $Explosion.emitting = false
 
 func _move_and_bounce():
+    if is_dying:
+        return
     look_at(translation + 100*direction, Vector3.UP)
     
     velocity = direction * current_speed
@@ -56,4 +63,12 @@ func _create_trail(delta, num_per_second, timeout=3.0, collision_layer_bit=1, en
     t.look_at(translation, Vector3.UP)
 
 func _die():
+    if is_dying:
+        return
+    is_dying = true
+    if has_node("Explosion"):
+        $Explosion.one_shot = true
+        $Explosion.emitting = true
+        $Mesh.hide()
+        yield(get_tree().create_timer(0.5), "timeout")
     queue_free()

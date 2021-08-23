@@ -38,6 +38,5 @@ func set_dir_towards_player():
 func _on_Hitbox_body_entered(body):
     _die()
 
-
 func _on_Hitbox_area_entered(area):
     _die()

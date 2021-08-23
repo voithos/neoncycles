@@ -8,7 +8,6 @@
 ## Stretch goals
 
 - Camera shake
-- Music
 - Sound effects
 - Countdown (3 2 1 go)
 - New enemy type (with trail)
