@@ -1,14 +1,18 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/dark.material" type="Material" id=2]
 [ext_resource path="res://scenes/Drone.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/EnemySpawn.tscn" type="PackedScene" id=4]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 25, 1, 25 )
 
 [sub_resource type="PlaneMesh" id=2]
 size = Vector2( 50, 50 )
+
+[sub_resource type="BoxShape" id=6]
+extents = Vector3( 20, 1, 20 )
 
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 26, 1, 1 )
@@ -37,6 +41,10 @@ material/0 = ExtResource( 2 )
 
 [node name="Drone" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.6776, 1.90735e-06, -14.2136 )
+
+[node name="EnemySpawn" parent="." instance=ExtResource( 4 )]
+spawn_shape = SubResource( 6 )
+debug = true
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 30, 0 )

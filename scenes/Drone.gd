@@ -28,6 +28,12 @@ func _get_player():
         return players[0]
     return null
 
+func set_dir_towards_player():
+    var player = _get_player()
+    if player:
+        player_dir = (player.global_transform.origin - global_transform.origin).normalized()
+        direction.x = player_dir.x
+        direction.z = player_dir.z
 
 func _on_Hitbox_body_entered(body):
     _die()
