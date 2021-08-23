@@ -47,7 +47,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.6776, 1.90735e-06, -14.2136
 
 [node name="EnemySpawn" parent="." instance=ExtResource( 4 )]
 spawn_shape = SubResource( 6 )
-spawn_rate = 0.5
+spawn_rate = 1.5
 debug = true
 
 [node name="Camera" parent="." instance=ExtResource( 6 )]
