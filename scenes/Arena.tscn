@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/dark.material" type="Material" id=2]
@@ -8,22 +8,43 @@
 [ext_resource path="res://scenes/Camera.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/LevelController.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/Wall.tres" type="Material" id=8]
+[ext_resource path="res://scenes/GlowWall.tres" type="Material" id=9]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 25, 1, 25 )
 
 [sub_resource type="PlaneMesh" id=2]
-size = Vector2( 50, 50 )
+size = Vector2( 70, 60 )
 
 [sub_resource type="BoxShape" id=6]
-extents = Vector3( 20, 1, 20 )
+extents = Vector3( 28, 1, 25 )
 
 [sub_resource type="BoxShape" id=3]
-extents = Vector3( 26, 1, 1 )
+extents = Vector3( 45, 1, 1 )
 
-[sub_resource type="CubeMesh" id=4]
+[sub_resource type="CubeMesh" id=11]
 material = ExtResource( 8 )
-size = Vector3( 52, 2, 2 )
+size = Vector3( 70, 2, 2 )
+
+[sub_resource type="CubeMesh" id=12]
+material = ExtResource( 9 )
+size = Vector3( 70, 0.5, 0.5 )
+
+[sub_resource type="CubeMesh" id=10]
+material = ExtResource( 8 )
+size = Vector3( 70, 2, 2 )
+
+[sub_resource type="CubeMesh" id=13]
+material = ExtResource( 9 )
+size = Vector3( 70, 0.5, 0.5 )
+
+[sub_resource type="CubeMesh" id=8]
+material = ExtResource( 8 )
+size = Vector3( 62, 2, 2 )
+
+[sub_resource type="CubeMesh" id=9]
+material = ExtResource( 8 )
+size = Vector3( 62, 2, 2 )
 
 [sub_resource type="Environment" id=5]
 background_mode = 1
@@ -38,7 +59,7 @@ glow_enabled = true
 bounds = AABB( -65.6065, -44.0571, -62.1285, 131.213, 88.1143, 124.257 )
 cell_size = 1.0251
 to_cell_xform = Transform( 0.975514, 0, 0, 0, 0.975514, 0, 0, 0, 0.975514, 64, 42.9783, 60.6072 )
-dynamic_data = PoolIntArray( 0, 8, 128, 128, 128, 1, 0, 0, 1086324736, 1110966272, 0, 0, 1102053376, 1110966272, 1065353216, 0, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 8355711, 0 )
+dynamic_data = PoolIntArray( 0, 8, 128, 128, 128, 1, 0, 0, 1102053376, 1115160576, 1065353216, 1065353216, 1086324736, 1115160576, 0, 1065353216, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 8355711, 0 )
 dynamic_range = 4
 bias = 1.5
 normal_bias = 0.0
@@ -71,7 +92,7 @@ transform = Transform( -0.424626, -0.640192, 0.640192, 0, 0.707107, 0.707107, -0
 shadow_enabled = true
 
 [node name="Wall1" type="StaticBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 25 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 31 )
 collision_layer = 5
 collision_mask = 5
 
@@ -79,11 +100,17 @@ collision_mask = 5
 shape = SubResource( 3 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Wall1"]
-mesh = SubResource( 4 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.622441, -1 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="Wall1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.622441, -1.79049 )
+mesh = SubResource( 12 )
 material/0 = null
 
 [node name="Wall2" type="StaticBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -25 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -30 )
 collision_layer = 5
 collision_mask = 5
 
@@ -91,11 +118,17 @@ collision_mask = 5
 shape = SubResource( 3 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Wall2"]
-mesh = SubResource( 4 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.622441, 0 )
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="Wall2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.622441, 0.828094 )
+mesh = SubResource( 13 )
 material/0 = null
 
 [node name="Wall3" type="StaticBody" parent="."]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -25, 0, 0 )
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -35, 0, 0 )
 collision_layer = 5
 collision_mask = 5
 
@@ -103,11 +136,12 @@ collision_mask = 5
 shape = SubResource( 3 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Wall3"]
-mesh = SubResource( 4 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.622441, 0 )
+mesh = SubResource( 8 )
 material/0 = null
 
 [node name="Wall4" type="StaticBody" parent="."]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 25, 0, 0 )
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 35, 0, 0 )
 collision_layer = 5
 collision_mask = 5
 
@@ -115,7 +149,8 @@ collision_mask = 5
 shape = SubResource( 3 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Wall4"]
-mesh = SubResource( 4 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.622441, 0 )
+mesh = SubResource( 9 )
 material/0 = null
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
