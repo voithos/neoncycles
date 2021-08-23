@@ -10,7 +10,7 @@ config_version=4
 
 [application]
 
-config/name="Cyclotron"
+config/name="Neon Cycles"
 run/main_scene="res://scenes/Arena.tscn"
 config/icon="res://icon.png"
 

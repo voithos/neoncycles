@@ -83,7 +83,9 @@ material/0 = ExtResource( 2 )
 
 [node name="EnemySpawn" parent="." instance=ExtResource( 4 )]
 spawn_shape = SubResource( 6 )
-spawn_rate = 1.5
+spawn_rate = 3.0
+spawn_rate_speedup_time = 30.0
+spawn_rate_max_speedup = 5.0
 
 [node name="Camera" parent="." instance=ExtResource( 6 )]
 

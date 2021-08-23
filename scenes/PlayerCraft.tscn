@@ -1,6 +1,16 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/craft_speederD.glb" type="PackedScene" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+metallic = 0.84
+metallic_specular = 0.86
+roughness = 0.13
+emission_enabled = true
+emission = Color( 0.188235, 0.941176, 0.905882, 1 )
+emission_energy = 5.0
+emission_operator = 0
+emission_on_uv2 = false
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.8, 0.254902, 1, 1 )
@@ -9,4 +19,5 @@ albedo_color = Color( 0.8, 0.254902, 1, 1 )
 
 [node name="craft_speederD" parent="tmpParent" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+material/2 = SubResource( 2 )
 material/3 = SubResource( 1 )

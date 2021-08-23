@@ -79,9 +79,9 @@ func _create_trail(delta, num_per_second, timeout=3.0, collision_layer_bit=1, en
 func _die():
     if is_dying:
         return
+    is_dying = true
     if is_enemy:
         Score.increment_score()
-    is_dying = true
     if has_node("Explosion"):
         $Explosion.one_shot = true
         $Explosion.emitting = true

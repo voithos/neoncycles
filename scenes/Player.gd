@@ -1,8 +1,8 @@
 extends "res://scenes/Craft.gd"
 
-const DEFAULT_SPEED = 20
-const FAST_SPEED = 30
-const SLOW_SPEED = 10
+const DEFAULT_SPEED = 19
+const FAST_SPEED = 33
+const SLOW_SPEED = 9
 const ACCEL = 4
 
 const ROTATION_RATE = 1.5 * PI
