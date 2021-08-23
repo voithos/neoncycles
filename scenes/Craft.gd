@@ -9,6 +9,8 @@ var target_rotation = 0.0
 var current_rotation = 0.0
 var direction = Vector3.FORWARD
 
+var last_trail = 0.0
+
 func _move_and_bounce():
     look_at(translation + 100*direction, Vector3.UP)
     
@@ -39,3 +41,19 @@ func _rotation_from_direction(dir):
     var dot = Vector3.FORWARD.x * dir.x + Vector3.FORWARD.z * dir.z
     var det = Vector3.FORWARD.x * dir.y - Vector3.FORWARD.z * dir.x
     return -atan2(det, dot)
+
+func _create_trail(delta, num_per_second, timeout=3.0, collision_layer_bit=1, enemy_layer_bit=3):
+    last_trail += delta
+    if last_trail < 1.0 / num_per_second:
+        return
+    last_trail = 0.0
+    var t = preload("res://scenes/Trail.tscn").instance()
+    get_parent().add_child(t)
+    t.timeout = timeout
+    t.collision_layer_bit = collision_layer_bit
+    t.enemy_layer_bit = enemy_layer_bit
+    t.translation = translation - direction
+    t.look_at(translation, Vector3.UP)
+
+func _die():
+    queue_free()

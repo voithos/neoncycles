@@ -28,4 +28,9 @@ collision_mask = 2
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, 0 )
 shape = SubResource( 2 )
 
+[node name="Camera" type="Camera" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 6, 5 )
+current = true
+
+[connection signal="area_entered" from="Body/Hitbox" to="Body" method="_on_Hitbox_area_entered"]
 [connection signal="body_entered" from="Body/Hitbox" to="Body" method="_on_Hitbox_body_entered"]

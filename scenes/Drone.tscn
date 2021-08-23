@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/DroneCraft.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Drone.gd" type="Script" id=2]
@@ -7,10 +7,14 @@
 radius = 1.25
 height = 0.75
 
+[sub_resource type="CylinderShape" id=2]
+height = 0.75
+
 [node name="Drone" type="Spatial"]
 
 [node name="Body" type="KinematicBody" parent="."]
-collision_layer = 3
+collision_layer = 6
+collision_mask = 4
 script = ExtResource( 2 )
 
 [node name="DroneCraft" parent="Body" instance=ExtResource( 1 )]
@@ -18,3 +22,14 @@ script = ExtResource( 2 )
 [node name="CollisionShape" type="CollisionShape" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, 0 )
 shape = SubResource( 1 )
+
+[node name="Hitbox" type="Area" parent="Body"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape" type="CollisionShape" parent="Body/Hitbox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, 0 )
+shape = SubResource( 2 )
+
+[connection signal="area_entered" from="Body/Hitbox" to="Body" method="_on_Hitbox_area_entered"]
+[connection signal="body_entered" from="Body/Hitbox" to="Body" method="_on_Hitbox_body_entered"]
