@@ -2,6 +2,8 @@ extends KinematicBody
 
 var velocity = Vector3.ZERO
 
+var is_enemy = true
+
 var current_speed = 0.0
 var target_speed = 0.0
 
@@ -10,14 +12,25 @@ var current_rotation = 0.0
 var direction = Vector3.FORWARD
 
 var last_trail = 0.0
+var is_ready = true
 var is_dying = false
+
+var gotcalled = false
 
 func _ready():
     if has_node("Explosion"):
         $Explosion.emitting = false
 
+func _spawn_enemy():
+    assert(!gotcalled)
+    gotcalled = true
+    is_ready = false
+    $AnimationPlayer.play("spawn")
+    yield($AnimationPlayer, "animation_finished")
+    is_ready = true
+
 func _move_and_bounce():
-    if is_dying:
+    if is_dying or !is_ready:
         return
     look_at(translation + 100*direction, Vector3.UP)
     
@@ -70,5 +83,11 @@ func _die():
         $Explosion.one_shot = true
         $Explosion.emitting = true
         $Mesh.hide()
+        if is_enemy:
+            Sfx.play(Sfx.ENEMY_EXPLOSION, Sfx.SFX_DB)
+            GlobalCamera.shake(0.25, 30, 0.5)
+        else:
+            Sfx.play(Sfx.PLAYER_EXPLOSION, Sfx.SFX_DB)
+            GlobalCamera.shake(0.5, 30, 3)
         yield(get_tree().create_timer(0.5), "timeout")
     queue_free()

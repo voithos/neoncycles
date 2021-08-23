@@ -1,7 +1,7 @@
 extends Area
 
 const MAX_ALPHA = 0.9
-const MIN_COLLISION_ALPHA = 0.2
+const MIN_COLLISION_ALPHA = 0.1
 var timer = 0
 var timeout = 3.0
 var self_deadly_timeout = 0.5

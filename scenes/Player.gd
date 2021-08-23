@@ -13,6 +13,7 @@ const TRAIL_TIMEOUT = 1.5
 
 func _ready():
     add_to_group("Player")
+    is_enemy = false
 
 func _physics_process(delta):
     if Input.is_action_pressed("turn_left"):

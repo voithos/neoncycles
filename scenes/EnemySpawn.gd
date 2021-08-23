@@ -26,10 +26,12 @@ func _physics_process(delta):
     
     timer += delta
     if timer > next_tick:
-        var e = enemy.instance()
-        add_child(e)
+        var en = enemy.instance()
+        add_child(en)
+        var e = en.get_node("Body")
         e.translation = Vector3(spawn_shape.extents.x * rand_range(-1, 1), 0, spawn_shape.extents.z * rand_range(-1, 1))
-        e.get_node("Body").set_dir_towards_player()
+        e.set_dir_towards_player()
+        e._spawn_enemy()
 
         timer = 0
         _set_next_tick()

@@ -34,6 +34,7 @@ func set_dir_towards_player():
         player_dir = (player.global_transform.origin - global_transform.origin).normalized()
         direction.x = player_dir.x
         direction.z = player_dir.z
+        look_at(translation + 100*direction, Vector3.UP)
 
 func _on_Hitbox_body_entered(body):
     _die()

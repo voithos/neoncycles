@@ -19,6 +19,8 @@ config/icon="res://icon.png"
 Screen="*res://scripts/Screen.gd"
 MaterialStore="*res://scripts/MaterialStore.gd"
 Music="*res://scripts/Music.gd"
+Sfx="*res://scripts/Sfx.gd"
+GlobalCamera="*res://scripts/GlobalCamera.gd"
 
 [display]
 
