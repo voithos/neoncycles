@@ -28,3 +28,9 @@ func _physics_process(delta):
     current_speed = lerp(current_speed, target_speed, ACCEL * delta)
 
     _move_and_bounce()
+
+func _die():
+    queue_free()
+
+func _on_Hitbox_body_entered(body):
+    _die()
