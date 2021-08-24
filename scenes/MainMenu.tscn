@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://assets/metal.material" type="Material" id=1]
 [ext_resource path="res://scenes/Logo.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/MainMenu.gd" type="Script" id=3]
 [ext_resource path="res://scenes/Font.tres" type="DynamicFontData" id=4]
 [ext_resource path="res://scenes/Transition.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/glitch.tscn" type="PackedScene" id=6]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 500, 1, 500 )
@@ -130,5 +131,8 @@ __meta__ = {
 }
 
 [node name="transition" parent="." instance=ExtResource( 5 )]
+
+[node name="glitch" parent="." instance=ExtResource( 6 )]
+margin_bottom = 990.0
 
 [connection signal="pressed" from="CanvasLayer/SinglePlayer" to="." method="_on_SinglePlayer_pressed"]
