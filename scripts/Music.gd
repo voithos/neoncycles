@@ -57,6 +57,10 @@ class MusicBox extends Node:
         alt_player.volume_db = MUSIC_DB
         player.play()
         alt_player.play()
+    
+    func stop():
+        player.stop()
+        alt_player.stop()
 
     func on_fade_complete(_object, _key):
         if player.volume_db == MIN_DB:
@@ -90,12 +94,16 @@ func _load_music():
 
 func play_menu():
     if current_music != MUSIC_MENU:
+        if last_musicbox:
+            last_musicbox.stop()
         menu_musicbox.play()
         current_music = MUSIC_MENU
         last_musicbox = menu_musicbox
 
 func play_battle():
       if current_music != MUSIC_BATTLE:
+        if last_musicbox:
+            last_musicbox.stop()
         battle_musicbox.play()
         current_music = MUSIC_BATTLE
         last_musicbox = battle_musicbox

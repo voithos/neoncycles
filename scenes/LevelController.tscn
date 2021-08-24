@@ -19,8 +19,12 @@ margin_right = 1242.0
 margin_bottom = 1018.0
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
-bbcode_text = "[center]Press enter to continue[/center]"
-text = "Press enter to continue"
+bbcode_text = "[center]Press enter to continue
+Or backspace to return[/center]
+"
+text = "Press enter to continue
+Or backspace to return
+"
 __meta__ = {
 "_edit_use_anchors_": false
 }
