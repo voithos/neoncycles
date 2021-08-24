@@ -1,14 +1,14 @@
 extends "res://scenes/Craft.gd"
 
 const DEFAULT_SPEED = 19
-const FAST_SPEED = 33
+const FAST_SPEED = 35
 const SLOW_SPEED = 9
 const ACCEL = 4
 
 const ROTATION_RATE = 1.5 * PI
 const ROTATION_ACCEL = 5
 
-const TRAIL_PER_SECOND = 30
+const TRAIL_PER_SECOND = 40
 const TRAIL_TIMEOUT = 1.5
 
 func _ready():

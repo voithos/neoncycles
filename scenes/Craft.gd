@@ -64,6 +64,8 @@ func _rotation_from_direction(dir):
     return -atan2(det, dot)
 
 func _create_trail(delta, num_per_second, timeout=3.0, collision_layer_bit=1, enemy_layer_bit=3):
+    if is_dying or !is_ready:
+        return
     last_trail += delta
     if last_trail < 1.0 / num_per_second:
         return
@@ -74,7 +76,7 @@ func _create_trail(delta, num_per_second, timeout=3.0, collision_layer_bit=1, en
     t.collision_layer_bit = collision_layer_bit
     t.enemy_layer_bit = enemy_layer_bit
     t.translation = translation - direction
-    t.look_at(translation, Vector3.UP)
+    t.look_at(global_transform.origin, Vector3.UP)
 
 func _die():
     if is_dying:

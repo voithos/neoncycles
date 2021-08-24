@@ -80,6 +80,7 @@ mesh = SubResource( 2 )
 material/0 = ExtResource( 2 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15 )
 
 [node name="EnemySpawn" parent="." instance=ExtResource( 4 )]
 spawn_shape = SubResource( 6 )
