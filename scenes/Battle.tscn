@@ -1,0 +1,179 @@
+[gd_scene load_steps=23 format=2]
+
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/dark.material" type="Material" id=2]
+[ext_resource path="res://scenes/Score.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/EnemySpawn.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Battle.gd" type="Script" id=5]
+[ext_resource path="res://scenes/Camera.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/LevelController.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/Wall.tres" type="Material" id=8]
+[ext_resource path="res://scenes/GlowWall.tres" type="Material" id=9]
+[ext_resource path="res://scenes/Transition.tscn" type="PackedScene" id=10]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 25, 1, 25 )
+
+[sub_resource type="PlaneMesh" id=2]
+size = Vector2( 70, 60 )
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 28, 1, 25 )
+
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 45, 1, 1 )
+
+[sub_resource type="CubeMesh" id=5]
+material = ExtResource( 8 )
+size = Vector3( 70, 2, 2 )
+
+[sub_resource type="CubeMesh" id=6]
+material = ExtResource( 9 )
+size = Vector3( 70, 0.5, 0.5 )
+
+[sub_resource type="CubeMesh" id=7]
+material = ExtResource( 8 )
+size = Vector3( 70, 2, 2 )
+
+[sub_resource type="CubeMesh" id=8]
+material = ExtResource( 9 )
+size = Vector3( 70, 0.5, 0.5 )
+
+[sub_resource type="CubeMesh" id=9]
+material = ExtResource( 8 )
+size = Vector3( 62, 2, 2 )
+
+[sub_resource type="CubeMesh" id=10]
+material = ExtResource( 8 )
+size = Vector3( 62, 2, 2 )
+
+[sub_resource type="Environment" id=11]
+background_mode = 1
+ambient_light_color = Color( 0.0431373, 0.203922, 0.203922, 1 )
+ambient_light_sky_contribution = 0.69
+tonemap_mode = 3
+ss_reflections_enabled = true
+ssao_enabled = true
+glow_enabled = true
+
+[sub_resource type="GIProbeData" id=12]
+bounds = AABB( -65.6065, -44.0571, -62.1285, 131.213, 88.1143, 124.257 )
+cell_size = 1.0251
+to_cell_xform = Transform( 0.975514, 0, 0, 0, 0.975514, 0, 0, 0, 0.975514, 64, 42.9783, 60.6072 )
+dynamic_data = PoolIntArray( 0, 8, 128, 128, 128, 1, 0, 0, 1102053376, 1115160576, 1065353216, 1065353216, 1086324736, 1115160576, 0, 1065353216, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 8355711, 0 )
+dynamic_range = 4
+bias = 1.5
+normal_bias = 0.0
+propagation = 0.7
+
+[node name="Battle" type="Spatial"]
+script = ExtResource( 5 )
+
+[node name="Floor" type="StaticBody" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Floor"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+shape = SubResource( 1 )
+disabled = true
+
+[node name="MeshInstance" type="MeshInstance" parent="Floor"]
+mesh = SubResource( 2 )
+material/0 = ExtResource( 2 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, -25.4702, 3.8147e-06, 21.2034 )
+is_two_player_mode = true
+
+[node name="Player2" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 24, 0, -21 )
+is_two_player_mode = true
+is_player_two = true
+
+[node name="EnemySpawn" parent="." instance=ExtResource( 4 )]
+spawn_shape = SubResource( 3 )
+spawn_rate = 3.0
+spawn_rate_speedup_time = 30.0
+spawn_rate_max_speedup = 5.0
+is_active = false
+
+[node name="Camera" parent="." instance=ExtResource( 6 )]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( -0.424626, -0.640192, 0.640192, 0, 0.707107, 0.707107, -0.905369, 0.300256, -0.300256, 8.44223, 13, 0.0280476 )
+shadow_enabled = true
+
+[node name="Wall1" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 31 )
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape" type="CollisionShape" parent="Wall1"]
+shape = SubResource( 4 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Wall1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.622441, -1 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="Wall1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.622441, -1.79049 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="Wall2" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -30 )
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape" type="CollisionShape" parent="Wall2"]
+shape = SubResource( 4 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Wall2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.622441, 0 )
+mesh = SubResource( 7 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="Wall2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.622441, 0.828094 )
+mesh = SubResource( 8 )
+material/0 = null
+
+[node name="Wall3" type="StaticBody" parent="."]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -35, 0, 0 )
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape" type="CollisionShape" parent="Wall3"]
+shape = SubResource( 4 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Wall3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.622441, 0 )
+mesh = SubResource( 9 )
+material/0 = null
+
+[node name="Wall4" type="StaticBody" parent="."]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 35, 0, 0 )
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape" type="CollisionShape" parent="Wall4"]
+shape = SubResource( 4 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Wall4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.622441, 0 )
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 11 )
+
+[node name="Score" parent="." instance=ExtResource( 3 )]
+is_two_player = true
+
+[node name="LevelController" parent="." instance=ExtResource( 7 )]
+
+[node name="GIProbe" type="GIProbe" parent="."]
+extents = Vector3( 65.6065, 44.0571, 62.1285 )
+data = SubResource( 12 )
+
+[node name="transition" parent="." instance=ExtResource( 10 )]

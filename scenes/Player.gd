@@ -11,21 +11,44 @@ const ROTATION_ACCEL = 5
 const TRAIL_PER_SECOND = 40
 const TRAIL_TIMEOUT = 1.5
 
+export (bool) var is_two_player_mode = false
+export (bool) var is_player_two = false
+
 func _ready():
     add_to_group("Player")
     is_enemy = false
 
+func enable_two_player(is_p2):
+    is_two_player_mode = true
+    is_player_two = is_p2
+    if is_p2:
+        direction = Vector3.BACK
+        target_rotation = PI
+        current_rotation = target_rotation
+
 func _physics_process(delta):
-    if Input.is_action_pressed("turn_left"):
-        target_rotation += ROTATION_RATE * delta
-    if Input.is_action_pressed("turn_right"):
-        target_rotation -= ROTATION_RATE * delta
-    if Input.is_action_pressed("speed_up"):
-        target_speed = FAST_SPEED
-    elif Input.is_action_pressed("slow_down"):
-        target_speed = SLOW_SPEED
+    if !is_player_two:
+        if Input.is_action_pressed("turn_left"):
+            target_rotation += ROTATION_RATE * delta
+        if Input.is_action_pressed("turn_right"):
+            target_rotation -= ROTATION_RATE * delta
+        if Input.is_action_pressed("speed_up"):
+            target_speed = FAST_SPEED
+        elif Input.is_action_pressed("slow_down"):
+            target_speed = SLOW_SPEED
+        else:
+            target_speed = DEFAULT_SPEED
     else:
-        target_speed = DEFAULT_SPEED
+        if Input.is_action_pressed("p2_turn_left"):
+            target_rotation += ROTATION_RATE * delta
+        if Input.is_action_pressed("p2_turn_right"):
+            target_rotation -= ROTATION_RATE * delta
+        if Input.is_action_pressed("p2_speed_up"):
+            target_speed = FAST_SPEED
+        elif Input.is_action_pressed("p2_slow_down"):
+            target_speed = SLOW_SPEED
+        else:
+            target_speed = DEFAULT_SPEED
 
     current_rotation = lerp(current_rotation, target_rotation, ROTATION_ACCEL * delta)
     direction = Vector3.FORWARD.rotated(Vector3.UP, current_rotation)
@@ -41,6 +64,14 @@ func _on_Hitbox_area_entered(area):
     _die()
 
 func _die():
+    if is_dying:
+        return
     var level = get_tree().get_nodes_in_group("level")[0]
     level.done()
+    if is_two_player_mode:
+        if is_player_two:
+            Score.increment_score()
+        else:
+            Score.increment_p2_score()
+        Score.pause_score()
     ._die()

@@ -136,3 +136,4 @@ __meta__ = {
 margin_bottom = 990.0
 
 [connection signal="pressed" from="CanvasLayer/SinglePlayer" to="." method="_on_SinglePlayer_pressed"]
+[connection signal="pressed" from="CanvasLayer/MultiPlayer" to="." method="_on_MultiPlayer_pressed"]

@@ -75,7 +75,7 @@ func _create_trail(delta, num_per_second, timeout=3.0, collision_layer_bit=1, en
     t.timeout = timeout
     t.collision_layer_bit = collision_layer_bit
     t.enemy_layer_bit = enemy_layer_bit
-    t.translation = translation - direction
+    t.global_transform.origin = global_transform.origin - direction
     t.look_at(global_transform.origin, Vector3.UP)
 
 func _die():
