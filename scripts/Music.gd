@@ -2,7 +2,7 @@ extends Node
 
 # Music management.
 
-const FADE_TIME = 10
+const FADE_TIME = 0.5
 const MIN_DB = -80.0
 const MUSIC_DB = -24.0
 
@@ -12,7 +12,6 @@ class MusicBox extends Node:
     # audio buses.
     var alt_player
     var tween
-    var last_playback_pos = 0
     
     func _init(stream):
         player = AudioStreamPlayer.new()
@@ -35,9 +34,8 @@ class MusicBox extends Node:
         alt_player.volume_db = volume_db
 
     func fade_in():
-        player.play(last_playback_pos)
-        alt_player.play(last_playback_pos)
-        last_playback_pos = 0
+        player.play()
+        alt_player.play()
         tween.remove_all()
         tween.interpolate_method(self, "set_volume_db", player.volume_db, MUSIC_DB, \
                 FADE_TIME, Tween.TRANS_EXPO, Tween.EASE_OUT)
@@ -65,7 +63,6 @@ class MusicBox extends Node:
     func on_fade_complete(_object, _key):
         if player.volume_db == MIN_DB:
             tween.remove_all()
-            last_playback_pos = player.get_playback_position()
             player.stop()
             alt_player.stop()
 
@@ -95,15 +92,22 @@ func _load_music():
 func play_menu():
     if current_music != MUSIC_MENU:
         if last_musicbox:
-            last_musicbox.stop()
-        menu_musicbox.play()
+            last_musicbox.fade_out()
+            menu_musicbox.stop()
+            menu_musicbox.fade_in()
+        else:
+            menu_musicbox.play()
         current_music = MUSIC_MENU
         last_musicbox = menu_musicbox
 
 func play_battle():
       if current_music != MUSIC_BATTLE:
         if last_musicbox:
-            last_musicbox.stop()
+            last_musicbox.fade_out()
+            battle_musicbox.stop()
+            battle_musicbox.fade_in()
+        else:
+            battle_musicbox.play()
         battle_musicbox.play()
         current_music = MUSIC_BATTLE
         last_musicbox = battle_musicbox
