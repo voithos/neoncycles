@@ -32,7 +32,7 @@ func _spawn_enemy():
 func _move_and_bounce():
     if is_dying or !is_ready:
         return
-    look_at(translation + 100*direction, Vector3.UP)
+    look_at(global_transform.origin + 100*direction, Vector3.UP)
     
     velocity = direction * current_speed
     velocity = move_and_slide(velocity, Vector3.UP)
@@ -63,7 +63,7 @@ func _rotation_from_direction(dir):
     var det = Vector3.FORWARD.x * dir.y - Vector3.FORWARD.z * dir.x
     return -atan2(det, dot)
 
-func _create_trail(delta, num_per_second, timeout=3.0, collision_layer_bit=1, enemy_layer_bit=3):
+func _create_trail(delta, num_per_second, timeout=3.0, collision_layer_bit=1, enemy_layer_bit=3, use_p2_material=false):
     if is_dying or !is_ready:
         return
     last_trail += delta
@@ -71,6 +71,7 @@ func _create_trail(delta, num_per_second, timeout=3.0, collision_layer_bit=1, en
         return
     last_trail = 0.0
     var t = preload("res://scenes/Trail.tscn").instance()
+    t.use_p2_material = use_p2_material
     get_parent().add_child(t)
     t.timeout = timeout
     t.collision_layer_bit = collision_layer_bit

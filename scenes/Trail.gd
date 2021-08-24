@@ -8,17 +8,27 @@ var self_deadly_timeout = 0.5
 var collision_layer_bit = 1
 var enemy_layer_bit = 3
 
+var use_p2_material = false
+
 func _ready():
     var alphas = []
     var a = 0.0
     while a <= MAX_ALPHA:
         alphas.push_back(a)
         a += 0.05
-    MaterialStore.init_transparent_materials($MeshInstance.get_surface_material(0), alphas)
+    if use_p2_material:
+        $MeshInstance.hide()
+        MaterialStore.init_transparent_materials_p2($P2MeshInstance.get_surface_material(0), alphas)
+    else:
+        $P2MeshInstance.hide()
+        MaterialStore.init_transparent_materials($MeshInstance.get_surface_material(0), alphas)
 
 func _physics_process(delta):
     var alpha_v = range_lerp(timer, 0, timeout, 1.0, 0.0)
-    $MeshInstance.set_surface_material(0, MaterialStore.get_material(alpha_v))
+    if use_p2_material:
+        $P2MeshInstance.set_surface_material(0, MaterialStore.get_material_p2(alpha_v))
+    else:
+        $MeshInstance.set_surface_material(0, MaterialStore.get_material(alpha_v))
 
     timer += delta
     if alpha_v < MIN_COLLISION_ALPHA:

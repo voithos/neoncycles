@@ -17,14 +17,27 @@ export (bool) var is_player_two = false
 func _ready():
     add_to_group("Player")
     is_enemy = false
+    $P2Mesh.hide()
 
 func enable_two_player(is_p2):
     is_two_player_mode = true
     is_player_two = is_p2
+    
     if is_p2:
+        $Mesh.hide()
+        $P2Mesh.show()
         direction = Vector3.BACK
         target_rotation = PI
         current_rotation = target_rotation
+        $Hitbox.set_collision_mask_bit(1, false)
+        $Hitbox.set_collision_mask_bit(3, true)
+
+func _create_trail(delta, num_per_second, timeout=3.0, collision_layer_bit=1, enemy_layer_bit=3, use_p2_material=false):
+    # Correct for p2
+    collision_layer_bit = 3 if is_player_two else 1
+    enemy_layer_bit = 1 if is_player_two else 3
+    use_p2_material = is_player_two
+    ._create_trail(delta, num_per_second, timeout, collision_layer_bit, enemy_layer_bit, use_p2_material)
 
 func _physics_process(delta):
     if !is_player_two:
